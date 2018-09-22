@@ -1,42 +1,59 @@
-var wave;
-var button;
-var playing;
+// var synth1 = new Synth();
+var osc = new p5.Oscillator();
+
+// function Synth() {
+//     //this.osc = new p5.Oscillator();
+
+//     this.setupCall = function() {
+//         //call during setup
+//         console.log("setupCall this", this);
+//         // this.slider = createSlider(100, 1200, 440);
+//         // this.button = createButton("on/off");
+//         // this.button.mousePressed(this.toggle);
+//         // this.playing = true;
+//     }
+// }
+
+// function toggle(synth) {
+//     console.log(synth);
+//     if (!synth.osc.playing) {
+//         synth.osc.playing = true;
+//         synth.osc.start();
+//         synth.osc.amp(.5, 1);
+//         synth.osc.freq(440);
+//         console.log("playing");
+//     } else {
+//         playing = false;
+//         synth.osc.stop();
+//         synth.osc.amp(0, 1);
+//         console.log("stopped");
+//     }
+// }
+
+
 
 function setup() {
     createCanvas(100, 100);
+    background(47);
+    //synth1.setupCall();
+    // synth1.slider = createSlider(100, 1200, 440);
+    // synth1.button = createButton("on/off");
+    // synth1.button.mousePressed(function() { toggle(synth1); });
+    // synth1.playing = true;
+    // synth1.osc = new p5.Oscillator();
 
-    wave = new p5.Oscillator();
-    wave.start();
-    wave.setType("triangle");
-    wave.amp(.1);
-    wave.freq(440);
+    // synth1.osc.start();
+    // synth1.osc.setType("triangle");
+    // synth1.osc.amp(1);
+    // synth1.osc.freq(440);
 
-    slider = createSlider(100,1200,440);
-
-    button = createButton("play/pause");
-    button.mousePressed(toggle);
-    playing = true;
+    osc.start();
+    osc.setType("triangle");
+    osc.amp(.3);
+    osc.freq(440);
 }
 
 function draw() {
-    wave.freq(slider.value());
-    if (playing) {
-        background(18, 199, 47);
-    } else {
-        background(123, 18, 47);
-    }
-}
-
-
-
-function toggle() {
-    if (!playing) {
-        playing = true;
-        wave.start();
-        wave.amp(.2,1);
-        wave.freq(440);
-    } else {
-        playing = false;
-        wave.stop();
-    }
+    // var newFreq = synth1.slider.value();
+    // synth1.osc.freq(newFreq);
 }
