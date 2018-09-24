@@ -2,9 +2,15 @@ var synths = [];
 
 function setup() {
     var newSyn = {};
+    var secondSyn = {};
     newSyn.osc = synth.initOsc();
     newSyn.ui = synth.initUI(newSyn.osc);
+
+    secondSyn.osc = synth.initOsc();
+    secondSyn.ui = synth.initUI(secondSyn.osc);
+
     synths.push(newSyn);
+    synths.push(secondSyn);
 }
 
 function draw() {
@@ -13,8 +19,18 @@ function draw() {
     synths.forEach(function(e, i, a) {
         var newFreq = e.ui.freqSlider.value();
         var newVol = e.ui.volSlider.value();
-        e.osc.amp(newVol);
-        e.osc.freq(newFreq);
+        var newWaveType = e.ui.waveType.value();
+
+        if (e.osc.getAmp() !== newVol) {
+            e.osc.amp(newVol);
+        }
+        if (e.osc.getFreq() !== newVol) {
+            e.osc.freq(newFreq);
+        }
+        if (e.osc.getType() !== newWaveType) {
+            e.osc.setType(newWaveType);
+        }
+
     })
 }
 
@@ -43,10 +59,18 @@ var synth = {
         });
         var freqSldr = createSlider(50, 2000, 440);
         var volSldr = createSlider(0.0, 1.0, 0.4, 0.025);
+
+        var waveTypeRadio = createRadio();
+        waveTypeRadio.option("Sine", "sine");
+        waveTypeRadio.option("Sawtooth", "sawtooth");
+        waveTypeRadio.option("Triangle", "triangle");
+        waveTypeRadio.option("Square", "square");
+
         var ui = {
             onOffButton: onOffBtn,
             freqSlider: freqSldr,
-            volSlider: volSldr
+            volSlider: volSldr,
+            waveType: waveTypeRadio
         };
         return ui;
     }
